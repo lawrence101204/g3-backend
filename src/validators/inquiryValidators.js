@@ -3,7 +3,11 @@ const { handleValidation } = require('./common');
 
 const validateInquiryCreate = [
   body('name').trim().notEmpty().isLength({ max: 200 }),
-  body('email').trim().isEmail().withMessage('email must be valid').normalizeEmail(),
+  body('email')
+    .trim()
+    .isEmail()
+    .withMessage('email must be valid')
+    .normalizeEmail(),
   body('message').trim().notEmpty().isLength({ min: 5, max: 5000 }),
   body('status').optional().isIn(['new', 'open', 'closed']),
   handleValidation,
