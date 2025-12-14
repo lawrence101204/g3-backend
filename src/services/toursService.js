@@ -62,4 +62,3 @@ async function updateTour(id, data) {
   return true;
 }
 
-module.exports = { listTours, getTour, createTour, updateTour, deleteTour };
