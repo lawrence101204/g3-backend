@@ -1,3 +1,8 @@
+/**
+ * MySQL database connection pool.
+ * Uses mysql2 with promises and connection pooling.
+ */
+
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({

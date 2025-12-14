@@ -9,21 +9,19 @@ const validateToursListQuery = [
   handleValidation,
 ];
 
- const validateTourId = [
+const validateTourId = [
   param('id').isInt({ min: 1 }).withMessage('id must be a positive integer'),
   handleValidation,
 ];
 
-
-
- const validateTourCreate = [
+const validateTourCreate = [
   body('name').trim().notEmpty().withMessage('name is required').isLength({ max: 200 }),
   body('description').optional().trim().isLength({ max: 5000 }),
   body('price').isFloat({ min: 0 }).withMessage('price must be >= 0'),
   handleValidation,
 ];
 
- const validateTourUpdate = [
+const validateTourUpdate = [
   param('id').isInt({ min: 1 }),
   body('name').optional().trim().isLength({ min: 1, max: 200 }),
   body('description').optional().trim().isLength({ max: 5000 }),

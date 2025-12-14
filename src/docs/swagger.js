@@ -1,11 +1,10 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 
-const options = {
+module.exports = swaggerJSDoc({
   definition: {
     openapi: '3.0.0',
-    info: { title: 'Backend API', version: '1.0.0' },
+    info: { title: 'Lavera API', version: '1.0.0' },
+    servers: [{ url: '/api' }],
   },
-  apis: ['./src/routes/*.js', './src/controllers/*.js'],
-};
-
-module.exports = swaggerJSDoc(options);
+  apis: ['./src/routes/*.js'],
+});
