@@ -1,3 +1,9 @@
+/**
+ * Application entry configuration.
+ * Registers global middlewares, routes, and error handlers.
+ * The app instance is exported and started by server.js.
+ */
+
 app.use(helmet());
 const cors = require('cors');
 const config = require('./config');

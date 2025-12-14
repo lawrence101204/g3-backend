@@ -1,3 +1,9 @@
+/**
+ * Tours service.
+ * Contains all database queries and business rules for tours.
+ * Controllers should never contain raw SQL.
+ */
+
 const db = require('../config/db');
 
 async function listTours({ page = 1, limit = 10, minPrice, maxPrice }) {
