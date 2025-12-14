@@ -1,6 +1,7 @@
-const db = require('../config/db');
+ const db = require('../config/db');
 
-async function createInquiry({ name, email, message, status = 'new' }) {
+ 
+ async function createInquiry({ name, email, message, status = 'new' }) {
   const [result] = await db.query('INSERT INTO inquiries (name, email, message, status) VALUES (?, ?, ?, ?)', [
     name,
     email,
@@ -8,14 +9,16 @@ async function createInquiry({ name, email, message, status = 'new' }) {
     status,
   ]);
   return getInquiry(result.insertId);
+
 }
 
-async function getInquiry(id) {
+  async function getInquiry(id) {
   const [rows] = await db.query('SELECT * FROM inquiries WHERE id = ? LIMIT 1', [id]);
   return rows[0] || null;
 }
 
-async function listInquiries({ page = 1, limit = 10, status, sort = 'created_at', order = 'desc' }) {
+ async function listInquiries({ page = 1, limit = 10, status, sort = 'created_at', order = 'desc' }) {
+
   const where = [];
   const params = [];
 
@@ -39,14 +42,16 @@ async function listInquiries({ page = 1, limit = 10, status, sort = 'created_at'
   return { items: rows, page, limit, total };
 }
 
-async function updateInquiryStatus(id, status) {
+ async function updateInquiryStatus(id, status) {
   await db.query('UPDATE inquiries SET status = ? WHERE id = ?', [status, id]);
   return getInquiry(id);
 }
 
-async function deleteInquiry(id) {
+ async function deleteInquiry(id) {
   const [result] = await db.query('DELETE FROM inquiries WHERE id = ?', [id]);
   return result.affectedRows > 0;
 }
+
+
 
 module.exports = { createInquiry, getInquiry, listInquiries, updateInquiryStatus, deleteInquiry };
