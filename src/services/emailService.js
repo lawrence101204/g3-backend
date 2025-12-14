@@ -7,11 +7,11 @@ async function sendNewInquiryNotification(inquiry) {
     to: process.env.MAIL_TO,
     subject: `New inquiry #${inquiry.id} from ${inquiry.name}`,
     text: `New inquiry received:
-ID: ${inquiry.id}
+ ID: ${inquiry.id}
 Name: ${inquiry.name}
 Email: ${inquiry.email}
 Status: ${inquiry.status}
-
+ 
 Message:
 ${inquiry.message}
 `,

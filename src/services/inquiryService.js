@@ -12,7 +12,7 @@
 
 }
 
-  async function getInquiry(id) {
+   async function getInquiry(id) {
   const [rows] = await db.query('SELECT * FROM inquiries WHERE id = ? LIMIT 1', [id]);
   return rows[0] || null;
 }

@@ -57,7 +57,7 @@ async function updateTour(id, data) {
   return getTour(id);
 }
 
-async function deleteTour(id) {
+ async function deleteTour(id) {
   await db.query('DELETE FROM tours WHERE id = ?', [Number(id)]);
   return true;
 }
