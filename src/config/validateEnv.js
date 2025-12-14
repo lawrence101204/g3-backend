@@ -1,12 +1,20 @@
 const AppError = require('../utils/AppError');
 const CODES = require('./errorCodes');
 
-module.exports = function validateEnv(config) {
-  if (!config.auth.jwtSecret) {
-    throw new AppError('JWT_SECRET is required', 500, CODES.INTERNAL_ERROR);
+function requireEnv(name) {
+  const v = process.env[name];
+  if (v === undefined) {
+    throw new AppError(`Missing required env var: ${name}`, 500, CODES.CONFIG_MISSING);
   }
+  return v;
+}
 
-  // DB vars can be optional for local XAMPP setups, but validate if any DB_HOST is set.
-  // (Safe to keep lenient for school/demo environments)
-  return true;
-};
+function validateEnv() {
+  // Required for security
+  requireEnv('JWT_SECRET');
+
+  // DB vars are optional here because db.js provides XAMPP-friendly defaults:
+  // DB_HOST=localhost, DB_USER=root, DB_PASSWORD='', DB_NAME=lavera
+}
+
+module.exports = validateEnv;

@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const inquiries = require('../controllers/inquiriesController');
-const {
-  validateInquiriesListQuery,
-  validateInquiryCreate,
-  validateInquiryStatusUpdate,
-} = require('../validators/inquiryValidators');
+const c = require('../controllers/inquiriesController');
+const v = require('../validators/inquiryValidators');
 
-router.get('/', validateInquiriesListQuery, inquiries.list);
-router.post('/', validateInquiryCreate, inquiries.create);
-router.put('/:id/status', validateInquiryStatusUpdate, inquiries.updateStatus);
+/**
+ * @openapi
+ * /inquiries:
+ *   get:
+ *     summary: List inquiries (pagination + sorting + status filter)
+ */
+router.get('/', v.validateInquiryListQuery, c.list);
+router.post('/', v.validateInquiryCreate, c.create);
+router.put('/:id/status', v.validateInquiryStatusUpdate, c.updateStatus);
+router.delete('/:id', v.validateInquiryId, c.remove);
 
 module.exports = router;
