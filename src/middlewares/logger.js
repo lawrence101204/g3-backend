@@ -1,6 +1,11 @@
-const morgan = require('morgan');
+module.exports = (req, res, next) => {
+  const start = Date.now();
 
-module.exports = () => {
-  morgan.token('rid', (req) => req.requestId || '-');
-  return morgan(':date[iso] rid=:rid :method :url :status :response-time ms');
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    const rid = req.id ? ` rid=${req.id}` : '';
+    console.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms${rid}`);
+  });
+
+  next();
 };
